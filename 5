@@ -1,0 +1,18 @@
+def insert(self, key):
+    # Append new node to the end of the list
+    self.heap.append(Node(key))
+
+    # Sift up the new node to maintain heap property
+    self.sift_up(len(self.heap) - 1)
+
+def delMin(self):
+    # Swap first and last nodes
+    self.heap[0], self.heap[-1] = self.heap[-1], self.heap[0]
+
+    # Remove last node (which is now the minimum)
+    min_node = self.heap.pop()
+
+    # Sift down the new root node to maintain heap property
+    self.sift_down(0)
+
+return min_node.key
