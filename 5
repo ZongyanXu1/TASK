@@ -1,18 +1,27 @@
-def insert(self, key):
-    # Append new node to the end of the list
-    self.heap.append(Node(key))
+import graphviz
 
-    # Sift up the new node to maintain heap property
-    self.sift_up(len(self.heap) - 1)
+def draw_heap(node, graph, parent=None):
+    if node is None:
+        return
 
-def delMin(self):
-    # Swap first and last nodes
-    self.heap[0], self.heap[-1] = self.heap[-1], self.heap[0]
+    # Add node to graph
+    graph.node(str(node.key))
 
-    # Remove last node (which is now the minimum)
-    min_node = self.heap.pop()
+    # Add edge to parent if applicable
+    if parent is not None:
+        graph.edge(str(parent.key), str(node.key))
 
-    # Sift down the new root node to maintain heap property
-    self.sift_down(0)
+    # Recursively add left and right children to the graph
+    draw_heap(node.left, graph, node)
+    draw_heap(node.right, graph, node)
 
-return min_node.key
+def visualize_heap(heap):
+    # Create graph object
+    graph = graphviz.Graph()
+
+    # Add nodes and edges to the graph
+    draw_heap(heap.root, graph)
+
+    # Generate visual representation of the graph
+    graph.render()
+
